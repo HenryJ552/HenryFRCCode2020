@@ -57,7 +57,7 @@ public class DriveSubsystem extends Subsystem {
     //Tells the motors to brake if not receiving power
     setNeutralMode(NeutralMode.Brake);
 
-    //Invert the right side motors so that robot drives straight
+    //Invert the right side motors so that the robot drives straight
     rightMotor1.setInverted(InvertType.InvertMotorOutput);
 
     //Configures encoders
