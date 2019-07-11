@@ -5,8 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-//Henry's Drive Command
-//Last edited: 7/9/19
+//Henry's Joystick Drive: 7/11/19
 
 package frc.robot.commands;
 
@@ -22,8 +21,9 @@ import frc.robot.subsystems.DriveSubsystem;
 
 
 public class StickDrive extends Command {
+
   public StickDrive() {
-    //Letting the robot know that we need access to the drivetrain in order to run this command
+    //Letting the robot know that we need access to the drive train in order to run this command
      requires(Robot.m_drive);
   }
 
@@ -31,7 +31,8 @@ public class StickDrive extends Command {
   @Override
   protected void initialize() {
     //Starting the robot in brake mode
-    Robot.m_drive.setNeutralMode(NeutralMode.Brake);  
+    Robot.m_drive.setNeutralMode(NeutralMode.Brake); 
+    Robot.m_drive.resetEncoders();
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -44,12 +45,17 @@ public class StickDrive extends Command {
     double stickY = -stick.getY();
     double twist = -stick.getTwist();
 
+    int rightEnc = Robot.m_drive.readRightEncoder();
+    int leftEnc = Robot.m_drive.readLeftEncoder();
+
     //Telemetry for debugging 
     SmartDashboard.putString("DB/String 0", String.format("joystickY: %4.31f", stick.getY()));
     SmartDashboard.putString("DB/String 1", String.format("joystickTwist: %4.31f", stick.getTwist()));
-   
+    SmartDashboard.putString("DB/String 2", String.format("rightEncoder: %d", rightEnc));
+    SmartDashboard.putString("DB/String 3", String.format("leftEncoder: %d", leftEnc));
+
     //Assigning motors powers based on the given joystick values
-    Robot.m_drive.setMotorPowers(stickY,twist);
+    Robot.m_drive.setMotorPowers(stickY,twist/2);
   }
 
   // Make this return true when this Command no longer needs to run execute()
@@ -71,3 +77,4 @@ public class StickDrive extends Command {
   protected void interrupted() {
   }
 }
+
