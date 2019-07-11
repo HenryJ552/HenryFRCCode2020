@@ -6,12 +6,15 @@
 /*----------------------------------------------------------------------------*/
 
 //Henry's Drive Subsystem
-//Last edited: 7/9/19
+//Last edited: 7/11/19
 
 package frc.robot.subsystems;
 
 //Installing needed configurions 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.hal.sim.mockdata.EncoderDataJNI;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.StickDrive;
@@ -103,6 +106,22 @@ public class DriveSubsystem extends Subsystem {
   //Method to turn
   public void turn(double turnSpeed) {
     setMotorPowers(0, turnSpeed);
+  }
+
+  //save encoder positions
+  
+  public int readRightEncoder() {
+    return rightMotor1.getSelectedSensorPosition();
+  }
+
+  public int readLeftEncoder() {
+    return leftMotor4.getSelectedSensorPosition();
+  }
+
+  //reset encoders
+  public void resetEncoders() {
+    rightMotor1.setSelectedSensorPosition(0);
+    leftMotor4.setSelectedSensorPosition(0);
   }
 }
 
