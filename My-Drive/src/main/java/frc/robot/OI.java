@@ -6,12 +6,14 @@
 /*----------------------------------------------------------------------------*/
 
 //Henry's OI Setup
-//Last edited: 7/9/19
+//Last edited: 7/11/19
 
 package frc.robot;
 
 //Installing needed configurions
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.EncoderDrive;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
   //Configuring the joystick to port 0
   public final Joystick stick = new Joystick(0);
+  private final JoystickButton trigger = new JoystickButton(this.stick, 1);
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
@@ -48,4 +51,8 @@ public class OI {
   // Start the command when the button is released and let it run the command
   // until it is finished as determined by it's isFinished method.
   // button.whenReleased(new ExampleCommand());
+  public OI(){
+    trigger.whenPressed(new EncoderDrive(1000));
+  }
 }
+
